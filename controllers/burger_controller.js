@@ -3,13 +3,15 @@ var express = require('express');
 var router = express.Router();
 
 // Import data model.
-var burger = require('../models/burger.js');
+var Burger = require('../models/burger.js');
 
 
 // GET route which calls the data model's 'all' method.
 // This route then hands the data it receives to handlebars so index can be rendered.
-router.get('/', function(req, res) {
-    burger.all(function(data) {
+router.get('/', function (req, res) {
+    Burger.findAll({
+        order: 'burger_name ASC'
+    }).then(function (data) {
         var hbsObject = {
             burgers: data
         };
@@ -19,23 +21,27 @@ router.get('/', function(req, res) {
 
 
 // POST route which calls the model's 'post' method with the burger name given.
-router.post('/', function(req, res) {
-    var name = req.body.name;
-    burger.post(name, function() {
+router.post('/', function (req, res) {
+    var burgerName = req.body.name;
+    Burger.create({
+        burger_name: burgerName
+    }).then(function () {
         res.redirect('/');
     });
 });
 
 // PUT (update) route which calls the model's update method.
 // This route sends the id and 'devoured' state on the burger modified.
-router.put('/:id', function(req, res) {
-    var property = req.body.devoured;
-    var selector = req.params.id;
+router.put('/:id', function (req, res) {
+    var devoured = req.body.devoured;
+    var ID = req.params.id;
 
-    burger.update(
-        property, selector, function() {
-            res.redirect('/');
-        });
+    Burger.update(
+        {devoured: devoured},
+        {where: {id: ID}}
+    ).then(function () {
+        res.redirect('/');
+    });
 });
 
 // Export routes for server.js.

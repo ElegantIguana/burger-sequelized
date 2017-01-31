@@ -9,6 +9,7 @@
     "express-handlebars": "^3.0.0",
     "method-override": "^2.3.7",
     "mysql": "^2.13.0",
+    "sequelize": "^3.30.0",
     "serve-favicon": "^2.3.2"
   },
   "devDependencies": {},
@@ -18,12 +19,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mchlltt/burger.git"
+    "url": "git+https://github.com/mchlltt/burger-sequelized.git"
   },
   "author": "mchlltt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mchlltt/burger/issues"
+    "url": "https://github.com/mchlltt/burger-sequelized/issues"
   },
-  "homepage": "https://github.com/mchlltt/burger#readme"
+  "homepage": "https://github.com/mchlltt/burger-sequelized#readme"
 }
