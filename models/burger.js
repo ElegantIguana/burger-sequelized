@@ -38,6 +38,8 @@ module.exports = function(sequelize, DataTypes) {
 //         updateOnDuplicate
 //     });
 
+    Burger.sync();
+
     return Burger;
 };
 
