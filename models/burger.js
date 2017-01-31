@@ -1,3 +1,4 @@
+// Import Sequelize library for `Sequelize.literal`.
 var Sequelize = require('sequelize');
 
 module.exports = function(sequelize, DataTypes) {
@@ -29,14 +30,17 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
+    // Create seed data if your table has fewer than 3 burgers.
     Burger.bulkCreate([
         {id: 1, burger_name: 'Hamburger'},
         {id: 2, burger_name: 'Cheeseburger'},
         {id: 3, burger_name: 'Veggie Burger'}
     ], {ignoreDuplicates: true});
 
+    // Sync model.
     Burger.sync();
 
+    // Return the model we defined.
     return Burger;
 };
 
