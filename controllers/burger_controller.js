@@ -3,13 +3,12 @@ var express = require('express');
 var router = express.Router();
 
 // Import data model.
-var Burger = require('../models/burger.js');
-
+var db = require('../models');
 
 // GET route which calls the data model's 'all' method.
 // This route then hands the data it receives to handlebars so index can be rendered.
 router.get('/', function (req, res) {
-    Burger.findAll({
+    db.burgers.findAll({
         order: 'burger_name ASC'
     }).then(function (data) {
         var hbsObject = {
@@ -23,7 +22,7 @@ router.get('/', function (req, res) {
 // POST route which calls the model's 'post' method with the burger name given.
 router.post('/', function (req, res) {
     var burgerName = req.body.name;
-    Burger.create({
+    db.burgers.create({
         burger_name: burgerName
     }).then(function () {
         res.redirect('/');
@@ -36,7 +35,7 @@ router.put('/:id', function (req, res) {
     var devoured = req.body.devoured;
     var ID = req.params.id;
 
-    Burger.update(
+    db.burgers.update(
         {devoured: devoured},
         {where: {id: ID}}
     ).then(function () {
