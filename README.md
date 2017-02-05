@@ -14,6 +14,9 @@ If you would like to run the application locally, please ensure that you have th
 - Clone this repository to your local machine with `git clone <repo-url>`.
 - Install NPM dependencies by running `npm install` in the project directory.
 - If you use a MySQL username other than `root` or have a MySQL password, open `config/config.json` and update these values on lines 3 and 4.
+- Log into MySQL CLI with `mysql -u root` (substitute your username and add `-p <your password>` if needed).
+- Run `CREATE DATABASE burgers_db;`
+- Exit MySQL with `exit`.
 - Ensure that you are in the root project directory, then run `npm start`.
 - The application will be running at `localhost:3000/`
 
