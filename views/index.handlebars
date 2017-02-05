@@ -11,13 +11,15 @@
         <h2>Ready</h2>
 
         <ul>
-            <!--Iterate through 'burgers' data item. If not devoured, create an item with its name and a 'devour' button. -->
+            <!--Iterate through 'burgers' data item. If not devoured, create an item with its name, a 'devour' button, and a customer name field. -->
             {{#each burgers}}
                 {{#unless this.devoured}}
                     <li class="holder">
                     <h4>{{this.burger_name}}</h4>
 
-                    <form action="/{{this.id}}?_method=PUT" method="POST">
+                    <form action="/api/new/customer/{{this.id}}?_method=PUT" method="POST">
+                        <label for="customer_name" class="sr-only">Your Name:</label>
+                        <input name="customer_name" placeholder="Your Name" type="text" maxlength="30" required>
                         <input type="hidden" name="devoured" value="true">
                         <button type="submit" class="btn btn-danger btn-sm">EAT IT!</button>
                     </form>
@@ -34,7 +36,7 @@
 
         <!-- Burger addition form -->
         <h2>Add a Burger</h2>
-        <form class="create-update-form add-form" action="/" method="POST">
+        <form class="create-update-form add-form" action="/api/new/burger" method="POST">
 
             <div class="form-group">
                 <label for="burger" class="sr-only">Burger Name:</label>
@@ -56,6 +58,7 @@
                 {{#if this.devoured}}
                     <li class="holder">
                     <h4>{{this.burger_name}}</h4>
+                        <h4>Eaten by: {{this.Customer.customer_name}}</h4>
 
                     <form action="/{{this.id}}?_method=PUT" method="POST">
                         <input type="hidden" name="devoured" value="false">

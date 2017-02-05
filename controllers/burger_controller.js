@@ -5,11 +5,14 @@ var router = express.Router();
 // Import data model.
 var db = require('../models');
 
-// GET route which calls the data model's 'all' method.
+// GET route which calls uses Sequelize's findAll method.
 // This route then hands the data it receives to handlebars so index can be rendered.
 router.get('/', function (req, res) {
-    db.burgers.findAll({
-        order: 'burger_name ASC'
+    db.Burger.findAll({
+        order: 'burger_name ASC',
+        include: [
+            {model: db.Customer, required: false}
+        ]
     }).then(function (data) {
         var hbsObject = {
             burgers: data
@@ -18,25 +21,47 @@ router.get('/', function (req, res) {
     });
 });
 
-
-// POST route which calls the model's 'post' method with the burger name given.
-router.post('/', function (req, res) {
+// POST route which calls Sequelize's create method with the burger name given.
+router.post('/api/new/burger', function (req, res) {
     var burgerName = req.body.name;
-    db.burgers.create({
+    db.Burger.create({
         burger_name: burgerName
     }).then(function () {
         res.redirect('/');
     });
 });
 
-// PUT (update) route which calls the model's update method.
-// This route sends the id and 'devoured' state on the burger modified.
+// POST route which calls Sequelize's create method with a customer name,
+// then the update method to attach the name to a burger and mark that burger as eaten.
+router.put('/api/new/customer/:id', function(req, res) {
+    var customerName = req.body.customer_name;
+    db.Customer.create({
+        customer_name: customerName
+    }).then(function(data) {
+        var devoured = true;
+        var ID = req.params.id;
+
+        db.Burger.update({
+            devoured: devoured,
+            CustomerId: data.id},
+            {where: {id: ID}}
+        ).then(function() {
+            res.redirect('/');
+        });
+    });
+});
+
+
+
+// PUT (update) route which calls Sequelize's update method to make the burger available to eat again..
+// Sends the id to identify which burger. Clears out CustomerId.
 router.put('/:id', function (req, res) {
-    var devoured = req.body.devoured;
+    var devoured = false;
     var ID = req.params.id;
 
-    db.burgers.update(
-        {devoured: devoured},
+    db.Burger.update(
+        {devoured: devoured,
+        CustomerId: null},
         {where: {id: ID}}
     ).then(function () {
         res.redirect('/');
