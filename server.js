@@ -13,7 +13,7 @@ var app = express();
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(path.join(__dirname, 'public')));
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 8000;
 
 // Set handlebars as view engine.
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
