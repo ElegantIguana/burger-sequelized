@@ -1,14 +1,14 @@
 <!-- Header -->
 <div class="row">
     <div class="col-xs-12">
-        <h1>Eat Da Burger!</h1>
+        <h1>Habit Wolves</h1>
     </div>
 </div>
 
 <div class="row">
     <!-- Ready burger column -->
     <div class="col-xs-12 col-sm-4">
-        <h2>Ready</h2>
+        <h2>Tracking</h2>
 
         <ul>
             <!--Iterate through 'burgers' data item. If not devoured, create an item with its name, a 'devour' button, and a customer name field. -->
@@ -18,10 +18,10 @@
                     <h4>{{this.burger_name}}</h4>
 
                     <form action="/api/new/customer/{{this.id}}?_method=PUT" method="POST">
-                        <label for="customer_name" class="sr-only">Your Name:</label>
+                        <label for="customer_name" class="sr-only">Date:</label>
                         <input name="customer_name" placeholder="Your Name" type="text" maxlength="30" required>
                         <input type="hidden" name="devoured" value="true">
-                        <button type="submit" class="btn btn-danger btn-sm">EAT IT!</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Done!</button>
                     </form>
                     </li>
                 {{/unless}}
@@ -32,25 +32,25 @@
     <!-- New burger column -->
     <div class="col-xs-12 col-sm-4">
 
-        <img src="assets/img/burger.png" alt="A drawing of a burger with several layers of toppings">
+        <img src="assets/img/herd-habit-lead.png" alt="A drawing of a burger with several layers of toppings">
 
         <!-- Burger addition form -->
-        <h2>Add a Burger</h2>
+        <h2>Start a Habit</h2>
         <form class="create-update-form add-form" action="/api/new/burger" method="POST">
 
             <div class="form-group">
-                <label for="burger" class="sr-only">Burger Name:</label>
-                <input type="text" id="burger" name="name" placeholder="Burger Name" class="form-control" maxlength="30">
+                <label for="burger" class="sr-only">Habit:</label>
+                <input type="text" id="burger" name="name" placeholder="I want to..." class="form-control" maxlength="30">
             </div>
 
-            <button type="submit" class="btn btn-danger">Add Burger</button>
+            <button type="submit" class="btn btn-danger">Start Tracking</button>
         </form>
     </div>
 
     <!--Eaten burger column-->
     <div class="col-xs-12 col-sm-4">
 
-        <h2>Eaten</h2>
+        <h2>Completed</h2>
 
         <ul>
             <!--Iterate through 'burgers' data item. If devoured, create an item with its name and a button. -->
@@ -58,11 +58,11 @@
                 {{#if this.devoured}}
                     <li class="holder">
                     <h4>{{this.burger_name}}</h4>
-                        <h4>Eaten by: {{this.Customer.customer_name}}</h4>
+                        <h4>Completed by: {{this.Customer.customer_name}}</h4>
 
                     <form action="/{{this.id}}?_method=PUT" method="POST">
                         <input type="hidden" name="devoured" value="false">
-                        <button type="submit" class="btn btn-danger btn-sm">MAKE ANOTHER!</button>
+                        <button type="submit" class="btn btn-danger btn-sm">Undo</button>
                     </form>
                 </li>
                 {{/if}}
@@ -70,3 +70,6 @@
         </ul>
     </div>
 </div>
+
+
+Add Comment
